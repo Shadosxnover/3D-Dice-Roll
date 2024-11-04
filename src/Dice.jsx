@@ -5,7 +5,7 @@ import { Euler } from "three";
 import { Plus, Minus } from "lucide-react";
 
 const Dice = ({ targetFace, isRolling, diceRef }) => {
-    const { scene } = useGLTF("/3D-Dice-Roll/dicev2/scene.gltf");
+  const { scene } = useGLTF("/3D-Dice-Roll/dicev2/scene.gltf");
 
   const faceRotations = {
     1: new Euler(0, 0, 0),
@@ -65,7 +65,7 @@ const DiceRoller = () => {
 
     setTimeout(() => {
       setIsRolling(false);
-      setRollCount((prevCount) => prevCount + 1);
+      setRollCount(prevCount => prevCount + 1);
 
       if (face === hiddenFace) {
         setIsWinner(true);
@@ -89,7 +89,6 @@ const DiceRoller = () => {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gray-900 text-white px-4 py-8">
       <div className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-8">Dice Roller</div>
-      
       <div className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px]">
         <Canvas>
           <ambientLight intensity={1} />
@@ -101,7 +100,6 @@ const DiceRoller = () => {
           />
         </Canvas>
       </div>
-      
       <div className="flex mt-4 items-center gap-2 sm:gap-4">
         <button
           onClick={handleDecrement}
@@ -122,12 +120,11 @@ const DiceRoller = () => {
           <Plus size={20} />
         </button>
       </div>
-
       <div className="flex mt-6 sm:mt-8 gap-3 sm:gap-4">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 sm:py-3 sm:px-6 rounded-lg text-sm sm:text-base transition-all duration-200 transform hover:scale-105"
+          className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 sm:py-3 sm:px-6 rounded-lg text-sm sm:text-base transition-all duration-200 transform hover:scale-105 ${isRolling ? "opacity-50 cursor-not-allowed" : ""}`}
           onClick={rollDice}
-          disabled={isWinner || gameOver}
+          disabled={isWinner || gameOver || isRolling}
         >
           Roll Dice
         </button>
@@ -138,23 +135,19 @@ const DiceRoller = () => {
           Reset Game
         </button>
       </div>
-
       <div className="mt-6 sm:mt-8 text-base sm:text-xl font-semibold text-gray-300">
         Roll Count: <span className="text-blue-400">{rollCount}</span>
       </div>
-      
       {hiddenFace && (
         <div className="mt-2 sm:mt-4 text-base sm:text-xl font-semibold text-gray-300">
           Target Face: <span className="text-blue-400">{hiddenFace}</span>
         </div>
       )}
-      
       {isWinner && (
         <div className="mt-3 sm:mt-4 text-lg sm:text-2xl text-center text-green-400 font-bold animate-bounce px-4">
           Congratulations! You've rolled the target face!
         </div>
       )}
-      
       {gameOver && (
         <div className="mt-3 sm:mt-4 text-lg sm:text-2xl text-center text-red-400 font-bold px-4">
           You didn't get the target face within the roll limit...
