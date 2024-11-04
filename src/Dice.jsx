@@ -5,7 +5,7 @@ import { Euler } from "three";
 import { Plus, Minus } from "lucide-react";
 
 const Dice = ({ targetFace, isRolling, diceRef }) => {
-  const { scene } = useGLTF("/dicev2/scene.gltf");
+    const { scene } = useGLTF("/3D-Dice-Roll/dicev2/scene.gltf");
 
   const faceRotations = {
     1: new Euler(0, 0, 0),
